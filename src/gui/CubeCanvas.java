@@ -1,11 +1,12 @@
 package gui;
 
+import java.applet.Applet;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+// import javax.swing.JFrame;
 
 import math.objects.Matrix;
 import math.operations.MatrixOperations;
@@ -13,9 +14,9 @@ import math.operations.MatrixTransformations;
 import models.Cube;
 
 
-public class CubeCanvas extends JFrame implements ActionListener
+public class CubeCanvas extends Applet implements ActionListener
 {
-    private JButton upButton, downButton, lefButton, rightButton;
+    private JButton upButton, downButton, lefButton, rightButton, frontButton, backButton;
     private JButton rotateXButton, rotateYButton, rotateZButton;
     private JButton antiRotateXButton, antiRotateYButton, antiRotateZButton;
     private JButton zoomInButton, zoomOutButton;
@@ -57,19 +58,16 @@ public class CubeCanvas extends JFrame implements ActionListener
 
     public CubeCanvas()
     {
-        super("Cube Program");
-        init();
+        super();
+        initialize();
     }
 
-    protected void init()
+    protected void initialize()
     {
         scale = 1;
 
-        setSize(800, 700);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(800, 900);
         setLayout(null);
-        setResizable(false);
-        setLocationRelativeTo(null);
 
         upButton = new JButton("UP");
         upButton.addActionListener(this);
@@ -90,6 +88,16 @@ public class CubeCanvas extends JFrame implements ActionListener
         rightButton.addActionListener(this);
         rightButton.setBounds(100, 490, 120, 20);
         add(rightButton);
+
+        frontButton = new JButton("FRONT");
+        frontButton.addActionListener(this);
+        frontButton.setBounds(100, 520, 120, 20);
+        add(frontButton);
+
+        backButton = new JButton("BACK");
+        backButton.addActionListener(this);
+        backButton.setBounds(100, 550, 120, 20);
+        add(backButton);
 
         rotateXButton = new JButton("ROTATE X");
         rotateXButton.addActionListener(this);
@@ -136,6 +144,7 @@ public class CubeCanvas extends JFrame implements ActionListener
     public void paint(Graphics g) 
     {
         super.paint(g);        
+        paintCube(g);
         paintCube(g);
     }
 
@@ -223,6 +232,14 @@ public class CubeCanvas extends JFrame implements ActionListener
         else if (e.getSource() == downButton)
         {
             CUBE.setY(CUBE.getY() + TRANSITION_STEP);
+        }
+        else if (e.getSource() == frontButton)
+        {
+            CUBE.setZ(CUBE.getZ() + TRANSITION_STEP);
+        }
+        else if (e.getSource() == backButton)
+        {
+            CUBE.setZ(CUBE.getZ() - TRANSITION_STEP);
         }
         else if (e.getSource() == rotateXButton)
         {
