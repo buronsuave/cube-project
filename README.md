@@ -1,3 +1,5 @@
+# Java Cube Project
+
 ## Getting Started
 
 This program will display a cute 3D cube in a Java Window
@@ -13,4 +15,3 @@ The workspace contains two folders, where:
 ## Preview
 
 ![Image](img/img01.png)
-
